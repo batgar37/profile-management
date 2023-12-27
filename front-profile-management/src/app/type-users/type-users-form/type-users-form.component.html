@@ -1,0 +1,48 @@
+<ng-template #usermodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">User Type</h4>
+    <button
+      type="button"
+      class="btn-close btn-close-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="typeUserGroup">
+      <div class="mb-3">
+        <div class="input-group">
+          <mat-form-field class="w-100">
+            <mat-label>Type</mat-label>
+            <input
+              matInput
+              placeholder="New type"
+              formControlName="type"
+              required
+            />
+            <mat-error *ngIf="typeUserGroup.controls['type'].invalid">{{
+              getTypeErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()">
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="createOrUpdateTypeUserSubmit()"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+<div class="d-flex justify-content-end">
+  <button #openModal class="btn btn-success my-3" (click)="open(usermodal)">
+    Add User Type
+  </button>
+</div>

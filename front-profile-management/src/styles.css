@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.btn-success {
+  width: 150px;
+  background-color: #018e42;
+  color: #edeed9;
+}
+
+.btn-danger {
+  width: 75px;
+  background-color: #b33951;
+}
+
+.btn-danger:hover {
+  background-color: #911c33;
+}
+
+.btn-warning {
+  width: 75px;
+  background-color: #f0803c;
+}
+
+.btn-warning:hover {
+  background-color: #f1640d;
+}
+
+.modal-header {
+  background-color: #171219;
+  color: #edeed9;
+}
+
+.modal-body {
+  background-color: #edeed9;
+}
+
+.modal-footer {
+  background-color: #d9dbbc;
+}
+
+.table-striped > tbody > tr > td,
+.table-striped > tbody > tr > th {
+  background-color: #edeed9;
+}

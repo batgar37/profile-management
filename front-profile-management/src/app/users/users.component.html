@@ -1,0 +1,13 @@
+<div>
+  <h1 class="text-center">Users</h1>
+  <app-user-form
+    #userForm
+    [userGroup]="userGroup"
+    [createOrUpdateUser]="createOrUpdateUser"
+  ></app-user-form>
+  <app-user-list
+    [deleteUser]="deleteUser"
+    [triggerUserModal]="triggerUserModal"
+    [users]="users"
+  ></app-user-list>
+</div>

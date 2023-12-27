@@ -1,0 +1,76 @@
+<ng-template #usermodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">User</h4>
+    <button
+      type="button"
+      class="btn-close btn-close-white"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="userGroup">
+      <div class="mb-3">
+        <div class="input-group">
+          <mat-form-field class="w-100">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder="Your Name"
+              formControlName="name"
+              required
+              minlength="3"
+            />
+            <mat-error *ngIf="userGroup.controls['name'].invalid">{{
+              getNameErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              placeholder="pat@example.com"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngIf="userGroup.controls['email'].invalid">{{
+              getEmailErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <mat-label class="mt-4">Type of the user</mat-label>
+            <mat-select formControlName="typeUser" required>
+              <mat-option
+                *ngFor="let typeUser of typeUserList"
+                [value]="typeUser.type"
+                >{{ typeUser.type }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()">
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="createOrUpdateUserSubmit()"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+<div class="d-flex justify-content-end">
+  <button
+    #openModal
+    class="btn my-3 btn-success my-3"
+    (click)="open(usermodal)"
+  >
+    Add user
+  </button>
+</div>

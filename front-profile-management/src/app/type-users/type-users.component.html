@@ -1,0 +1,12 @@
+<div>
+  <h1 class="text-center">Users types</h1>
+  <app-type-users-form
+    [typeUserGroup]="typeUserGroup"
+    [createOrUpdateTypeUser]="createOrUpdateTypeUser"
+  ></app-type-users-form>
+  <app-type-user-list
+    [typeUsers]="typeUsers"
+    [deleteTypeUser]="deleteTypeUser"
+    [triggerTypeUserModal]="triggerTypeUserModal"
+  ></app-type-user-list>
+</div>

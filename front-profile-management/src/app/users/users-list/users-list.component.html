@@ -1,0 +1,42 @@
+<table
+  class="table align-middle table-sm table-striped table-hover table-borderless"
+  matSort
+  (matSortChange)="sortData($event)"
+>
+  <thead>
+    <tr>
+      <th scope="col" mat-sort-header="name">Name</th>
+      <th scope="col" mat-sort-header="email">Email</th>
+      <th scope="col" mat-sort-header="typeUser">Type</th>
+      <th class="text-center" scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr
+      *ngFor="let user of sortedData; let i = index"
+      class="content"
+      scope="row"
+    >
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.typeUser.type }}</td>
+      <td class="text-center">
+        <button
+          (click)="deleteU(user.id, user.name, i)"
+          type="button"
+          class="btn btn-danger"
+        >
+          Delete
+        </button>
+        <button
+          type="button"
+          class="btn btn-warning"
+          (click)="updateUser(user.id, i)"
+        >
+          Update
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
