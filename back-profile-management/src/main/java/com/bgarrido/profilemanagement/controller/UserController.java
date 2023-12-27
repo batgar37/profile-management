@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://${crossUrl}:4200")
 @RequestMapping("api/users")
 public class UserController {
     private UserService userService;

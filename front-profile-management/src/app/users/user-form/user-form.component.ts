@@ -69,7 +69,6 @@ export class UserFormComponent {
 
   createOrUpdateUserSubmit = () => {
     let user = this.userGroup.value as User;
-    console.log(user);
 
     if (this.userGroup.valid) {
       this.createOrUpdateUser(user);

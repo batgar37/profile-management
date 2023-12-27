@@ -1,0 +1,68 @@
+services:
+    fullbd:
+        #From what image pull the service
+        image: mysql
+        #Name the container
+        container_name: fullbd
+        #Publishing ports (first one for accessing from outside of docker and the seconde from inside docker)
+        ports:
+            - "3307:3306"
+        #Environment variables
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: test
+        #Ping the mysql server to see if it is up and running
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "mysqladmin",
+                    "ping",
+                    "-h",
+                    "localhost",
+                    "-uroot",
+                    "-proot",
+                ]
+            #Time to wait to get a response
+            timeout: 5s
+            #Time to wait until next try
+            interval: 5s
+            #Number of try
+            retries: 20
+
+    #BackEnd service using our SpringBoot project image
+    fullspring:
+        #Build the image from the Dockerfile in indicated path
+        build: ./back-profile-management
+        #Name of the image create
+        image: fullspringboot
+        #Name the container
+        container_name: fullspring
+        #Publishing ports (first one for accessing from outside of docker and the seconde from inside docker)
+        ports:
+            - "8080:8080"
+        #Environment variables
+        environment:
+            #Set BD service (Ip adress) in the environment variable define in the spring application (DATABASE_HOST in this case).
+            DATABASE_HOST: fullbd
+            #Set source request service (Ip adress) in the environment variable define in the spring application (SOURCE_HOST in this case).
+            SOURCE_HOST: fullangular
+        #Make the service depend on the Mysql service
+        depends_on:
+            fullbd:
+                #Condition to start container : check if healcheck in specified container is ok
+                condition: "service_healthy"
+
+    #FrontEnd service using our Angular project image
+    fullangular:
+        #Build the image from the Dockerfile in indicated path
+        build: ./front-profile-management
+        #From what image pull the service
+        image: fullangular
+        #Name the container
+        container_name: fullangular
+        ports:
+            - "4200:80"
+        #Make the service depend on the SpringBoot service
+        depends_on:
+            - fullspring

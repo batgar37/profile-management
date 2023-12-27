@@ -12,7 +12,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://${crossUrl}:4200")
 @RequestMapping("api/type-users")
 public class TypeUserController {
 

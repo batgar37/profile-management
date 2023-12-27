@@ -53,7 +53,6 @@ export class TypeUsersFormComponent {
 
   createOrUpdateTypeUserSubmit = () => {
     let typeUser = this.typeUserGroup.value as TypeUser;
-    console.log(typeUser);
 
     if (this.typeUserGroup.valid) {
       this.createOrUpdateTypeUser(typeUser);
