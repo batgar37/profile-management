@@ -17,8 +17,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @CrossOrigin(origins = "http://${crossUrl}:4200")
 @RequestMapping("api/users")
 public class UserController {
-    private UserService userService;
-    private TypeUserService typeUserService;
+    private final UserService userService;
+    private final TypeUserService typeUserService;
 
     @Autowired
     public UserController(UserService userService, TypeUserService typeUserService) {

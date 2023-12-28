@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -35,15 +35,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        System.err.println();
-
         return userRepository.save(user);
     }
 
     @Override
     public User deleteById(int id) {
-        Optional<User> user = userRepository.findById(id);
-        userRepository.deleteById(id);
-        return user.get();
+        Optional<User> result = userRepository.findById(id);
+        User user = null;
+        if (result.isPresent()) {
+            userRepository.deleteById(id);
+            user = result.get();
+        }
+        return user;
     }
 }

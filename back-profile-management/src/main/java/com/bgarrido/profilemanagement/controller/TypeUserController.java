@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RequestMapping("api/type-users")
 public class TypeUserController {
 
-    private TypeUserService typeUserService;
+    private final TypeUserService typeUserService;
 
     @Autowired
     public TypeUserController(TypeUserService typeUserService) {

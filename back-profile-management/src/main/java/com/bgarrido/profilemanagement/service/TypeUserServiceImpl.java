@@ -14,8 +14,8 @@ import java.util.Optional;
 @Service
 public class TypeUserServiceImpl implements TypeUserService{
 
-    private TypeUserRepository typeUserRepository;
-    private UserRepository userRepository;
+    private final TypeUserRepository typeUserRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public TypeUserServiceImpl(TypeUserRepository typeUserRepository, UserRepository userRepository) {
