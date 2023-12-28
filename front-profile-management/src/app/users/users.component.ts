@@ -65,7 +65,7 @@ export class UsersComponent {
         id: id,
         email: user.email,
         name: user.name,
-        typeUser: user.typeUser.type,
+        typeUser: user.typeUser ? user.typeUser.type : null,
       };
       // give the information about the user to the form
       this.userGroup.patchValue(partial);

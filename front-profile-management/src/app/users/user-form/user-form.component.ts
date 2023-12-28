@@ -77,7 +77,6 @@ export class UserFormComponent {
 
     if (this.userGroup.valid) {
       this.createOrUpdateUser(user);
-      // this.userGroup.reset();
       this.modalService.dismissAll();
     } else {
       alert('The user form is not valid');

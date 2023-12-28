@@ -20,7 +20,7 @@
     >
       <td>{{ user.name }}</td>
       <td>{{ user.email }}</td>
-      <td>{{ user.typeUser.type }}</td>
+      <td>{{ user.typeUser ? user.typeUser.type : "" }}</td>
       <td class="text-center">
         <button
           (click)="deleteU(user.id, user.name, i)"
