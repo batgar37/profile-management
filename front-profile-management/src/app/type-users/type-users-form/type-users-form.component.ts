@@ -18,16 +18,20 @@ import { TypeUser } from '../type-user';
 export class TypeUsersFormComponent {
   private modalService = inject(NgbModal);
 
+  // Get the typeUserGroup FormGroup and the
+  // createOrUpdateTypeUser method from the parent component
   @Input()
   typeUserGroup: FormGroup = new FormGroup({});
   @Input()
   createOrUpdateTypeUser!: (typeUser: TypeUser) => void;
 
+  // Find the button element with #openModal in view
   @ViewChild('openModal')
   button!: ElementRef;
 
   closeResult = '';
 
+  // Open the modal and get info on close
   open(content: TemplateRef<any>) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
@@ -42,34 +46,36 @@ export class TypeUsersFormComponent {
       );
   }
 
+  // Click on the button to open the modal programaticaly
   openModal() {
     this.button.nativeElement.click();
   }
 
+  // Close the modal and empty the form
   cancel = () => {
     this.modalService.dismissAll();
     this.typeUserGroup.reset({ id: -1 });
   };
 
+  // check the data and call the parent method if correct
   createOrUpdateTypeUserSubmit = () => {
-    let typeUser = this.typeUserGroup.value as TypeUser;
-
     if (this.typeUserGroup.valid) {
+      let typeUser = this.typeUserGroup.value as TypeUser;
       this.createOrUpdateTypeUser(typeUser);
-      // this.userGroup.reset();
       this.modalService.dismissAll();
     } else {
-      alert('The user form is not valid');
+      alert('The type form is not valid');
     }
   };
 
+  // return a message if an error is present in the type input
   getTypeErrorMessage() {
     if (this.typeUserGroup.controls['type'].hasError('required')) {
       return 'You must enter a value';
     }
 
     return this.typeUserGroup.controls['type'].hasError('minlength')
-      ? 'The name mush have at least 3 character'
+      ? 'The type must have at least 3 character'
       : '';
   }
 }

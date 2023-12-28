@@ -8,6 +8,10 @@ import { TypeUser } from '../type-user';
   styleUrls: ['./type-user-list.component.css'],
 })
 export class TypeUserListComponent {
+  // Get :
+  // deleteTypeUser method,
+  // triggerTypeUserModal method,
+  // typeUsers TypeUser[] from the parent component
   @Input()
   deleteTypeUser!: (id: number, index: number) => void;
   @Input()
@@ -21,6 +25,7 @@ export class TypeUserListComponent {
     this.sortedData = [];
   }
 
+  // update the value of sortedData on typeUsers change
   ngOnChanges(changes: SimpleChanges) {
     for (let property in changes) {
       if (property === 'typeUsers') {
@@ -29,16 +34,20 @@ export class TypeUserListComponent {
     }
   }
 
+  // Call the parent method to delete a TypeUser
   deleteTU(id: number, type: string, index: number) {
     if (confirm(`Do you realy want to remove the user type ${type}`)) {
       this.deleteTypeUser(id, index);
     }
   }
 
+  // Call the parent method to trigger the TypeUser modal
+  // so the user can edit the TypeUser
   updateTypeUser(id: number, index: number) {
     this.triggerTypeUserModal(id);
   }
 
+  // sort the TypeUser
   sortData(sort: Sort) {
     const data = this.typeUsers.slice();
     if (!sort.active || sort.direction === '') {

@@ -23,11 +23,14 @@ export class UserFormComponent {
   private modalService = inject(NgbModal);
   private typeUserService = inject(TypeUserService);
 
+  // Get the userGroup FormGroup and the
+  // createOrUpdateUser method from the parent component
   @Input()
   userGroup: FormGroup = new FormGroup({});
   @Input()
   createOrUpdateUser!: (user: User) => void;
 
+  // Find the button element with #openModal in view
   @ViewChild('openModal')
   button!: ElementRef;
 
@@ -35,20 +38,14 @@ export class UserFormComponent {
 
   typeUserList: TypeUser[] = [];
 
-  ngOnChanges(changes: SimpleChanges) {
-    for (let property in changes) {
-      if (property === 'userGroup') {
-        this.userGroup = changes[property].currentValue;
-      }
-    }
-  }
-
+  // Get the typeUsers to fill the select input
   ngOnInit() {
     this.typeUserService.getAllTypeUser().subscribe((typeUsers) => {
       this.typeUserList = typeUsers as TypeUser[];
     });
   }
 
+  // Open the modal and get info on close
   open(content: TemplateRef<any>) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
@@ -63,10 +60,18 @@ export class UserFormComponent {
       );
   }
 
+  // Click on the button to open the modal programaticaly
   openModal() {
     this.button.nativeElement.click();
   }
 
+  // Close the modal and empty the form
+  cancel = () => {
+    this.modalService.dismissAll();
+    this.userGroup.reset({ id: -1 });
+  };
+
+  // check the data and call the parent method if correct
   createOrUpdateUserSubmit = () => {
     let user = this.userGroup.value as User;
 
@@ -79,28 +84,25 @@ export class UserFormComponent {
     }
   };
 
-  cancel = () => {
-    this.modalService.dismissAll();
-    this.userGroup.reset({ id: -1 });
-  };
-
+  // return a message if an error is present in the email input
   getEmailErrorMessage() {
     if (this.userGroup.controls['email'].hasError('required')) {
       return 'You must enter a value';
     }
 
     return this.userGroup.controls['email'].hasError('email')
-      ? 'Not a valid email'
+      ? 'You must enter a valid email'
       : null;
   }
 
+  // return a message if an error is present in the name input
   getNameErrorMessage() {
     if (this.userGroup.controls['name'].hasError('required')) {
       return 'You must enter a value';
     }
 
     return this.userGroup.controls['name'].hasError('minlength')
-      ? 'The name mush have at least 3 character'
+      ? 'The name must have at least 3 character'
       : '';
   }
 }

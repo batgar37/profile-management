@@ -23,24 +23,28 @@ export class TypeUsersComponent {
     type: new FormControl('', [Validators.required]),
   });
 
+  // Get all TypeUser on init
   ngOnInit() {
     this.typeUserService.getAllTypeUser().subscribe((typeUsers) => {
       this.typeUsers = typeUsers as TypeUser[];
     });
   }
 
+  // Call the API to delete a TypeUser
   deleteTypeUser = (id: number, index: number): void => {
     this.typeUserService.delete(id).subscribe((response) => {
       this.typeUsers = this.typeUsers.filter((item) => item.id !== id);
     });
   };
 
+  // Use the correct method to update or create a TypeUser
   createOrUpdateTypeUser = (typeUser: TypeUser): void => {
     typeUser.id === -1
       ? this.createTypeUser(typeUser)
       : this.updateTypeUser(typeUser);
   };
 
+  // Call the API to create a TypeUser
   createTypeUser = (typeUser: TypeUser): void => {
     this.typeUserService
       .createTypeUser(typeUser)
@@ -49,6 +53,7 @@ export class TypeUsersComponent {
       });
   };
 
+  // Call the API to update a TypeUser
   updateTypeUser = (typeUser: TypeUser) => {
     this.typeUserService
       .updateTypeUser(typeUser)

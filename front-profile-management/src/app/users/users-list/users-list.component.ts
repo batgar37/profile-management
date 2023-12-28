@@ -9,6 +9,10 @@ import { Sort } from '@angular/material/sort';
   styleUrls: ['./users-list.component.css'],
 })
 export class UsersListComponent {
+  // Get :
+  // deleteUser method,
+  // triggerUserModal method,
+  // users User[] from the parent component
   @Input()
   deleteUser!: (id: number, index: number) => void;
   @Input()
@@ -22,6 +26,7 @@ export class UsersListComponent {
     this.sortedData = [];
   }
 
+  // update the value of sortedData on typeUsers change
   ngOnChanges(changes: SimpleChanges) {
     for (let property in changes) {
       if (property === 'users') {
@@ -30,6 +35,20 @@ export class UsersListComponent {
     }
   }
 
+  // Call the parent method to delete a User
+  deleteU(id: number, name: string, index: number) {
+    if (confirm(`Do you realy want to remove the user ${name}`)) {
+      this.deleteUser(id, index);
+    }
+  }
+
+  // Call the parent method to trigger the User modal
+  // so the user can edit the User
+  updateUser(id: number, index: number) {
+    this.triggerUserModal(id);
+  }
+
+  // sort the User
   sortData(sort: Sort) {
     const data = this.users.slice();
     if (!sort.active || sort.direction === '') {
@@ -50,16 +69,6 @@ export class UsersListComponent {
           return 0;
       }
     });
-  }
-
-  deleteU(id: number, name: string, index: number) {
-    if (confirm(`Do you realy want to remove the user ${name}`)) {
-      this.deleteUser(id, index);
-    }
-  }
-
-  updateUser(id: number, index: number) {
-    this.triggerUserModal(id);
   }
 }
 function compare(a: number | string, b: number | string, isAsc: boolean) {
